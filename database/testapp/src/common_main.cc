@@ -225,6 +225,12 @@ extern "C" int common_main(int argc, const char* argv[]) {
   saved_url = ref.url();
   LogMessage("URL: %s", saved_url.c_str());
 
+  // Assert fails if going offline/online too quickly while authorized
+  {
+    database->GoOffline();
+    database->GoOnline();
+  }
+
   // Set and Get some simple fields. This will set a string, integer, double,
   // bool, and current timestamp, and then read them back from the database to
   // confirm that they were set. Then it will remove the string value.
